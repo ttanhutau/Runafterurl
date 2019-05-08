@@ -1,0 +1,740 @@
+
+
+#all{
+  position: relative; 
+  width: 100%;
+  height: 100%;
+  
+  }
+
+
+  
+  
+  #loginpart{
+  background-color: white;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  
+
+  
+  }
+
+.center{
+  align-content: center;
+}
+
+#talkspace{
+  margin-top: 5%;
+  align-content: center;
+  margin-bottom: 5%;
+}
+#talk_share{
+
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+ 
+ 
+}
+#talk_send{
+ margin-right: 2%;
+ margin-left: 2%; 
+ margin-bottom: 2%;
+ height: 60%;
+ width: 25%;
+
+}
+#talkimput{
+  margin-top: 0.7%;
+  height: 100%;
+  width: auto;
+  border-color: black;
+  
+ 
+
+}
+
+
+#thetalk_input{
+  width: 800px;
+  margin-left: 2%;
+ /* float: left;*/
+ 
+
+} @media screen and (max-width: 1000px) {
+  #thetalk_input{
+    width: 530px;
+
+
+  }
+
+
+}
+@media screen and (max-width: 860px) {
+  #url{
+
+    font-size: 90%;
+  }
+  #urlclick{
+    position: relative;
+    top: 20%;
+  }
+  .introcitation{
+    font-size: 80%;
+
+  }
+  .citations{
+    font-size: 80%;
+
+
+  }
+  #thetalk_input{
+    width: 420px;
+
+
+  }
+
+
+}
+/*end of the media*/
+@media screen and (max-width: 768px) {
+
+  #url{
+
+    font-size: 80%;
+  }
+  #urlclick{
+    position: relative;
+    top: 30%;
+  }
+  .introcitation{
+    font-size: 80%;
+
+  }
+  .citations{
+    font-size: 80%;
+
+
+  }
+  #thetalk_input{
+    width: 350px;
+
+
+  }
+
+}
+
+
+
+
+@media screen and (max-width: 640px) {
+
+  .col{
+  width: 100%;
+
+  }
+  #sixbuttons{
+
+  }
+  #url{
+   height: 20px;
+    font-size: 70%;
+    box-shadow: 0 6px 0 0 #383A3D;
+
+  }
+  #urlclick{
+    position: relative;
+    top: 30%;
+  font-size: 70%;
+  }
+  #thetalk_input{
+    width: 300px;
+
+
+  }
+
+ #appbar{
+   display: block;
+
+
+ }
+
+
+ #dropdoon{
+   width : 400%;
+   font-size: 70%;
+ }
+ .dropdecale{
+   margin-bottom: 10%;
+   margin-right: 1000%;
+
+ }
+ .box{
+ justify-content: unset;
+
+ flex-direction: column;/* Safari 6.1+ */
+
+
+ }
+ .card{
+  
+  margin-top: 2%;
+  margin-bottom: 2%;
+
+
+}
+
+#snackbar{
+font-size: 80%;
+}
+
+}
+/* end of the media Q */
+
+@media screen and (max-width: 460px) {
+  .progresslevel{
+    font-size: 10px;
+
+  }
+  #url{
+  font-size: 60%;
+  vertical-align: center;
+  }
+  #urlclick{
+   padding-top: 1.5%; 
+  }
+  
+  #thetalk_input{
+    width: 240px;
+
+
+  }
+  .introcitation{
+    font-size: 60%;
+
+
+  }
+
+
+}
+
+
+
+
+  #gamepart{
+  position: relative;
+  overflow: hidden;
+  width: 95%;
+  height: 100%;
+  left: 2.5%;
+  right: 2.5%;
+  
+  
+  }
+  #textform{
+    align-content: center;
+
+  }
+
+  #auth{
+    border-style: solid;
+    border-color: #9F9DAB; 
+    border-top: white;
+    border-radius: 5px;
+width: 100%;
+height: 10%;
+
+
+  }
+
+
+
+
+/*    #url {
+  margin-top: 5%;
+  width: 90%;
+    opacity: 0.9;
+     border-radius: 10px;
+       border: 0;
+
+  margin-left: 5%;
+    box-shadow: 0 10px 0 0 #383A3D;
+cursor: pointer;
+
+  }*/
+  #urlclick{
+ 
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    text-align: center;
+    font-size: 130%;
+    height: 100%;
+    margin-top: 60px;
+position: relative;
+top: 15%;
+
+  }
+  
+  
+
+  #instruction{
+    align-content: center;
+    text-align: justify;
+   
+  text-align: center;
+  color: #383A3D;
+  width: 95%;
+  font-size: 120%;
+  margin-left: 2.5%;
+  margin-top: 2.5%;
+  overflow-wrap: break-word;
+  align-content: center;
+  
+      
+  }
+  #progress8level{
+    display: flex;
+    vertical-align: middle; 
+    margin-top: 5%;
+  
+
+  }
+  #appbar{
+  display: flex;
+  align-content: center;
+  width: 100%;
+
+}
+h2{
+border-style: solid;
+padding: 3%;  
+
+}
+.takeplace{
+align-content: center;
+margin-bottom: 2%;
+
+
+}
+.totakeplace{
+width: 100%;
+
+
+
+}
+
+
+  #bigname{
+    overflow-wrap: break-word;    
+    width: 100%;
+   
+    height: 50px;
+    font-size: 80%;
+
+    text-align: justify;
+    font-size: auto;
+    align-content: center;
+    border-style: solid;
+    padding : 1%;
+    border-radius: 10px;
+    background-color: #F5F9FC;
+    border: 2px solid #6D6E6F;
+
+
+
+  }
+  #language{
+    text-align: center;
+    align-content: center;
+    width: 100%;
+
+
+  }
+  #bigmessage{
+    text-align: justify;
+    border-style: solid;
+/*    background-color: #FEFAE3;
+    border: 1px solid #F0E1A1;*/
+    background-color: #F5F9FC;
+    border: 2px solid #6D6E6F;
+ overflow-wrap: break-word;    
+font-size: 80%;
+padding : 1%;
+border-radius: 10px;
+
+    width: 100%;
+    height: 50px;
+  }
+  .swal-text {
+
+    padding: 17px;
+  
+    display: block;
+    margin: 22px;
+    text-align: center;
+    color: #61534e;
+  }
+  
+  .Messago{
+    width: 30%;
+    height: 60px;
+
+  }
+  .urlstep-message{
+    width: 30%;
+    text-align: center;
+    margin-right: 2%;
+    margin-left: 2%;
+    height: 30%;
+
+  }
+  .citations{
+    text-align: center;
+    word-break:break-all;
+
+   
+  }
+  .introcitation{
+       border: 2px solid #6D6E6F;
+       font-weight: unset;
+    border-radius: 5px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+/*    
+  border-bottom-color: #E9ECEF;  */
+
+
+  }
+  #winnerMessage{
+    bottom: 2%;
+
+  }
+
+  .blockquote{
+    text-align: center;
+
+  }
+
+ #level{
+
+  text-align: center;
+  margin: auto;
+  width: 20%;
+  font-size:200%;
+  font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+  
+}
+
+
+
+
+  #sixbuttons{
+    display: flex;
+
+  }
+  
+  .sixbut{
+  margin-top: 5%; 
+  width: 100%;
+  }
+
+
+ 
+  
+  #loginbutton{
+   position: relative;
+      top: 60%;
+      border: black;
+      border-radius: 15px;
+     
+      cursor: pointer;    
+  
+  
+  
+  }
+  /*dd*/
+
+  .clickcontainer{
+  width: 10%;
+  position: absolute;
+  left : 45%;
+  }
+  .box{
+  
+  justify-content: space-between;
+  position: relative;
+  font-size: 80%;
+  display: flex; 
+  
+  
+  
+  }
+  .leave{
+    margin-top: 5%;
+    width: 100%;
+  }
+
+  .progress{
+    margin-top: 5%;
+    width: 85%;
+   
+    margin-right: 5%;
+    margin-left: 5%;
+
+  }
+  .progresslevel{
+    margin-top: 5%;
+    font-size: 20px; 
+    border: #333 solid 3px;
+    height: 40px;
+  
+    width: 25%;
+   text-align: center;
+   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+
+
+  }
+
+  
+  
+  .or{
+    text-align: center;
+    size: 120%;
+    background-color: black;
+    border-radius:20%; 
+
+  }
+
+  #textimput{
+    width: 100%;
+  }
+  #thetextimput{
+    width: 60%;
+    margin-left: 20%;
+    border-color: #9B9EFF;
+    background-color:rgba(149, 177, 162, 0.356);
+    border-radius: 5px;
+    
+
+  }
+  #button_text{
+    text-align: center;
+    margin-left: 40%;
+    width: 20%;
+    /*padding-left: 2.5%;*/ 
+    font-size: 90%;
+    margin-top: 5%; 
+  }
+  #answertext{
+    text-align: center;
+    margin: auto;
+    font-size: 90%;
+    
+  }
+  .decale{
+margin-bottom: 5%; 
+ }
+
+  .card{
+      width: 95%;
+      position: relative;
+      margin-left: 2%;
+      margin-right: 2%;
+      text-align: center;
+
+  }
+  #create_Post{
+    margin-left: 2.5%; 
+    width: 95%;
+  
+
+  }
+  #center_text{
+    display: flex;
+    justify-content: center;
+    align-content: center;
+
+
+  }
+  #skip{
+    width: 100%;
+  }
+  #clicktoskip{
+    width: 100%;
+  }
+  
+
+  #loginstuff{
+  position: relative;
+  margin-top: 5%;
+  align-content: center;
+
+  }
+  
+  
+  #loginbutton:hover{
+      font-size: 120%;
+  
+  }
+
+
+  .loginmessage{
+
+  text-align: center;
+  left: 40%;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  font-size: 140%;
+  }
+  
+  #form {
+      height: 30%;
+      background-color: #E5FFF1;
+      width: 100%;
+
+  }
+  #login{
+    margin-left: 25%;
+      align-content: center;
+      width: 50%;
+      
+
+  }
+  .dropdownbutton{
+    margin-left: 5%; 
+  }
+
+
+
+  .button{
+  
+      flex-direction: row;
+      flex-wrap: wrap;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+      font-size: 100%;
+  
+  }
+
+#makeyourpost{
+
+  justify-content: center;
+  text-align: center;
+
+
+}
+#makeyourpost2{
+
+  justify-content: center;
+  text-align: center;
+
+
+}
+#uniqueIdentifier{
+text-align: center;
+margin-top: 25%;
+font-size: 140%;
+width: 100%;
+}
+ul {
+transform: rotate(180deg);
+}
+ul > li {
+transform: rotate(-180deg);
+}
+
+/*//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////::*/
+
+/* The snackbar - position it at the bottom and in the middle of the screen */
+#snackbar {
+visibility: hidden; /* Hidden by default. Visible on click */
+min-width: 250px; /* Set a default minimum width */
+margin-left: -125px; /* Divide value of min-width by 2 */
+background-color: #333; /* Black background color */
+color: #fff; /* White text color */
+text-align: center; /* Centered text */
+border-radius: 2px; /* Rounded borders */
+padding: 16px; /* Padding */
+position: fixed; /* Sit on top of the screen */
+z-index: 1; /* Add a z-index if needed */
+left: 50%; /* Center the snackbar */
+bottom: 30px; /* 30px from the bottom */
+}
+
+/* Show the snackbar when clicking on a button (class added with JavaScript) */
+#snackbar.show {
+visibility: visible; /* Show the snackbar */
+/* Add animation: Take 0.5 seconds to fade in and out the snackbar. 
+However, delay the fade out process for 2.5 seconds */
+-webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
+animation: fadein 0.5s, fadeout 0.5s 2.5s;
+}
+
+/* Animations to fade the snackbar in and out */
+@-webkit-keyframes fadein {
+from {bottom: 0; opacity: 0;} 
+to {bottom: 30px; opacity: 1;}
+}
+
+@keyframes fadein {
+from {bottom: 0; opacity: 0;}
+to {bottom: 30px; opacity: 1;}
+}
+
+@-webkit-keyframes fadeout {
+from {bottom: 30px; opacity: 1;} 
+to {bottom: 0; opacity: 0;}
+}
+
+@keyframes fadeout {
+from {bottom: 30px; opacity: 1;}
+to {bottom: 0; opacity: 0;}
+}
+
+
+/*******************************************************************/
+
+
+#url {
+/** Offset the Position **/
+
+margin-top: 5%;
+vertical-align: middle;
+
+width: 90%;
+margin-left: 5%;
+text-align: center;
+
+
+/** 3D Block Effect **/
+box-shadow: 0 10px 0 0 #383A3D;
+
+/** Make it look pretty **/
+display: block;
+background: #494F54;
+text-decoration: none;
+
+color: #eee;
+
+border: 0;
+cursor: pointer;
+  height: 40px; 
+opacity: 0.9;
+border-radius: 10px;
+}
+
+#url:active {
+/** Remove 3D Block Effect on Click **/
+box-shadow: none;
+top: 10px;
+margin-bottom: 0;
+}
+
+#url:hover {
+opacity: 1;
+}
+
+#url:active,
+#url:focus {
+/** Remove Chrome's Ugly Yellow Outline **/
+outline: 0;
+}

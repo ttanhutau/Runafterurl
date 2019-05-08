@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css"
+        integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
+    <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/js/toastr.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="icon" type="image/png" href="../duckicon.png" />
+
+
+    <title>RUN_AFTER_URL</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/5.6.0/firebase-firestore.js"></script>
+    <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+    <script>
+        (adsbygoogle = window.adsbygoogle || []).push({
+            google_ad_client: "ca-pub-1609433205042496",
+            enable_page_level_ads: true
+        });
+    </script>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-135698094-1"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'UA-135698094-1');
+    </script>
+    
+
+    <script>
+
+        // Initialize Firebase
+        var config = {
+            apiKey: "AIzaSyC5b6IBWPgnvm6gI1HniVb0IYagnzPe4Lo",
+            authDomain: "urlproject-b49a6.firebaseapp.com",
+            databaseURL: "https://urlproject-b49a6.firebaseio.com",
+            projectId: "urlproject-b49a6",
+            storageBucket: "urlproject-b49a6.appspot.com",
+            messagingSenderId: "577404906771"
+        };
+        var firedefault = firebase.initializeApp(config);
+        var db = firedefault.firestore();
+        db.settings({
+            timestampsInSnapshots: true
+        });
+        var lvl_player = 1;
+        var username;
+
+
+
+
+    </script>
+
+</head>
+
+
+
+<script>
+
+
+    getPage();
+
+    //gettheUser
+    var instruction;
+    var expected;
+    var named;
+    var url;
+    var idcode;
+    var buttonclick;
+    var valide;
+    var type;
+    var status = 0;
+    var howtime = false;
+    var seconds = 0;
+    var stringlvl;
+    var official_document_id;
+    var potential_id;
+    var already_report = false;
+    var reportnumb;
+    var has_post = false;
+    var new_player = false;
+    var onlyinlogin = true;
+    var lvlmax;
+    var namemax;
+    var max_id;
+    var officialmax_id;
+    var Player_istop = false;
+    var doubleclick = true;
+    var teamlvl;
+    var waitogo = false;
+    var waitistrue = false
+
+
+
+    function getPage() {
+
+
+        if (status <= 3) {
+            db.collection('Posts_fr').where('valide', '==', true).orderBy("lvl", "desc").limit(1).get().then((snapshot) => {
+                snapshot.docs.forEach(doc => {
+                    lvlmax = doc.data().lvl;
+                    namemax = doc.data().name;
+                    max_id = doc.data().id;
+                    definebar();
+                    if (waitistrue == true && type == 0) {
+                        howtime = true;
+                        countdown(0);
+                    }
+                });
+            });
+        }
+
+        db.collection('Posts_fr').where('lvl', '>=', lvl_player).orderBy("lvl").limit(1).get().then((snapshot) => {
+
+            if (snapshot.empty) {
+                var document_id;
+                db.collection('Posts_fr').where('valide', '==', false).where('id', '==', username).limit(1).get().then((snapshot) => {
+                    if (snapshot.empty) {
+
+
+                        var lvlo_player = lvl_player - 1;
+
+                        swal("you need to put a Post");
+                        doubleclick = true;
+                        db.collection("users_fr").doc(idcode).set({
+                            lvl: lvlo_player,
+                            id: username,
+                            onethetop: false,
+                        });
+
+                    }
+                    snapshot.docs.forEach(doc => {
+                        document_id = doc.id
+                        db.collection('Posts_fr').doc(document_id).set({
+                            valide: true,
+                            lvl: lvl_player,
+
+                        }, { merge: true });
+
+                        db.collection('users_fr').where('id', '==', max_id).get().then((snapshot) => {
+                            snapshot.docs.forEach(doc => {
+                                officialmax_id = doc.id;
+
+                                db.collection('users_fr').doc(officialmax_id).set({
+                                    onethetop: false,
+                                }, { merge: true });
+                            });
+                        });
+
+
+                        db.collection('users_fr').doc(idcode).set({
+                            onethetop: true,
+                        }, { merge: true });
+                        successpage();
+
+                    });
+
+                });
+
+
+
+
+
+            }
+            snapshot.docs.forEach(doc => {
+
+
+
+
+                name = doc.data().name;
+                instruction = doc.data().instruction;
+                expected = doc.data().expected;
+                url = doc.data().url;
+                official_document_id = doc.id;
+                stringlvl = lvl_player.toString();
+
+
+
+
+                //                document.getElementById("namo").innerHTML = "author message" ;
+                if (name >= 50) {
+                    document.getElementById("inputname").innerHTML = name.substring(0, 50);
+                } else {
+                    document.getElementById("inputname").innerHTML = name;
+
+
+                }
+                document.getElementById("level").innerHTML = "level " + stringlvl;
+                document.getElementById("instruction").innerHTML = instruction;
+                document.getElementById("url").setAttribute("href", url);
+                //show the url in the button
+                var short_url = url.substring(0, 50);
+                document.getElementById("urlclick").innerHTML = short_url;
+                document.getElementById("actual_level").innerHTML = "lvl " + stringlvl;
+
+                type = doc.data().type;
+
+
+                if (type == 0) {
+
+                    document.getElementById("button1").innerHTML = doc.data().one;
+                    document.getElementById("button2").innerHTML = doc.data().two;
+                    document.getElementById("button3").innerHTML = doc.data().three;
+                    document.getElementById("button4").innerHTML = doc.data().four;
+                    document.getElementById("button5").innerHTML = doc.data().five;
+                    document.getElementById("button6").innerHTML = doc.data().six;
+                    document.getElementById('clicktoskip').style.display = "none";
+
+                    document.getElementById("sixbuttons").style.display = "block";
+                    document.getElementById('textform').style.display = "none";
+                } else {
+                    document.getElementById("sixbuttons").style.display = "none";
+                    document.getElementById('clicktoskip').style.display = "none";
+
+
+                    document.getElementById('textform').style.display = "block";
+
+
+                }
+            });
+
+
+            if (status == 0) {
+
+
+            } else if (status == 1) {
+                document.getElementById('gamepart').style.display = "block";
+                document.getElementById('loginpart').style.display = "none";
+                Maketalkspace();
+
+
+            } else if (status == 2) {
+                document.getElementById('gamepart').style.display = "none";
+                document.getElementById('createapost').style.display = "block";
+
+                swal("Pour publier une Etape Url, Vous devez avoir reussi la précédente Url").then((value) => {
+                    swal('Il existe certaines règles à respecter, pour que votre ETAPE URL ne soit pas supprimée').then((value) => {
+                        swal("L'Url et les éléments de réponse doivent être disponible le plus longtemps possible. \n\n Les éléments de réponse doivent absolument être sur la page web. \n\nVotre Etape Url doit être en Français sans faute d'orthographe. \n\n Le contenue de votre Etape Url ne peut pas être une copie d'une précédente Etape Url.");
+                    });
+                });
+
+
+            } else if (status == 3) {
+                document.getElementById('gamepart').style.display = "block"
+                document.getElementById('loginpart').style.display = "none";
+                document.getElementById('createapost').style.display = "none";
+
+            };
+            if (new_player == true) {
+                new_player = false;
+                swal({
+                    icon: "success",
+                    title: "Start to Run After Url now",
+                    text: "Répondez à la question ci-dessous en cliquant sur l'url puis appuyer sur 'Répondre' ",
+
+
+                })
+            };
+
+        })
+
+        if (onlyinlogin == true && lvlmax - 20 < lvl_player && has_post == false) {
+            onlyinlogin = false;
+
+            swal({
+                icon: "warning",
+                title: "N'oubliez pas de publier votre ETAPE_Url",
+                text: "Si vous oubliez d'en mettre une, vous ne pourrez pas être l'Url-Master"
+            });
+        }
+
+
+
+
+
+    }
+
+
+    function definebar() {
+
+        var result;
+        result = lvl_player * 100 / lvlmax;
+        var lvlomax = lvlmax.toString();
+        var result = result.toString();
+        var lvlmaxstring = lvlmax.toString();
+        console.log(lvlmaxstring);
+        document.getElementById("futurlevel").innerHTML = "lvl" + lvlmaxstring;
+
+        var attribute = "width: " + result + "%";
+        document.getElementById("progbar").setAttribute("style", attribute);
+        if (namemax <= 50) {
+            document.getElementById("inputmessage").innerHTML = namemax.substring(0, 48);
+
+        } else {
+
+            document.getElementById("inputmessage").innerHTML = namemax;
+
+        }
+
+
+    }
+
+    function successpage() {
+        var successcreen = document.getElementById("all");
+        successcreen.innerHTML = "Bien jouez !! Vous avez publié votre ETAPE_URL sur le web avec succès <br> Maintenant votre message pourra être lut par n'importe quel joueur";
+        successcreen.style.alignContent = "center";
+        successcreen.style.textAlign = "center";
+        successcreen.style.backgroundColor = "#A9CEE8";
+        var endmessage = document.createElement('yourmessage');
+        endmessage.style.marginTop = "20%";
+        endmessage.style.textAlign = "center";
+        endmessage.style.fontSize = "200 %";
+        document.body.appendChild(endmessage);
+
+        var divchange = document.createElement('div');
+        divchange.setAttribute("id", "uniqueIdentifier");
+        var whenfinished = document.createElement("nomoreonthetop");
+        whenfinished.innerHTML = "Vous êtes toujours l'Url Master";
+        whenfinished.style.textAlign = "center";
+        //    whenfinished.style.margin = "0 auto";
+        whenfinished.style.color = "#3769C4"
+
+        divchange.appendChild(whenfinished)
+
+        document.body.appendChild(divchange);
+        //notice if the onethetop = false => if yes =>
+        db.collection("users_fr").where("id", "==", username)
+            .onSnapshot(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    if (doc.data().onethetop == false) {
+                        //create a button that refresh the page
+                        whenfinished.style.backgroundColor = "#C43813";
+                        whenfinished.innerHTML = "Désolé, ....personne n'est éternel. Vous n'êtes plus Url Master ";
+                        divchange.appendChild(whenfinished);
+
+                        document.body.appendChild(whenfinished);
+
+
+                    }
+                });
+            });
+
+
+
+
+    }
+
+
+    function login() {
+        username = document.getElementById("login");
+        username = username.elements[0].value.toString();
+        if (username.length > 2) {
+
+            var docref = db.collection('users_fr').where('id', '==', username);
+            docref.onSnapshot(function (querySnapshot) {
+
+
+                if (querySnapshot.empty) {
+                    db.collection("users_fr").add({
+                        lvl: 1,
+                        id: username,
+                        countop: 1,
+                        onethetop: false,
+                        has_post: false,
+                    });
+
+
+                    login();
+
+                    onlyinlogin = false;
+                    new_player = true;
+                }
+
+
+                querySnapshot.docs.forEach(doc => {
+
+                    lvl_player = doc.data().lvl;
+                    idcode = doc.id;
+                    potential_id = doc.data().usereport;
+                    has_post = doc.data().has_post;
+                    Player_istop = doc.data().onethetop;
+
+                     waitistrue = doc.data().waiting;
+                    if (Player_istop != true) {
+                        synchronize_players();
+                        status = 1;
+                    } else {
+                        successpage();
+                    }
+
+               
+                });
+
+
+
+            });
+
+        } else {
+            var x = document.getElementById("snackbar");
+            x.style.backgroundColor = "red";
+            x.innerHTML = "3 lettres sont nécessaires";
+            x.className = "show";
+            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+
+
+        }
+
+    }
+
+
+    var value_text_field;
+
+    function synchronize_players() {
+        db.collection("users_fr").where("id", "==", username)
+            .onSnapshot(function (querySnapshot) {
+                querySnapshot.forEach(function (doc) {
+                    teamlvl = doc.data().lvl;
+                    if (teamlvl != lvl_player) {
+
+                        lvl_player = teamlvl;
+                        var x = document.getElementById("snackbar");
+                        x.style.backgroundColor = "green";
+                        x.innerHTML = "Accès Autorisé";
+                        x.className = "show";
+                        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+                    };
+
+                    getPage();
+
+                });
+            });
+    }
+
+</script>
+
+
+
+<body>
+    <div id="all">
+        <div id="snackbar">well done my boy!!</div>
+
+        <div id="loginpart">
+
+            <div class="alert alert-primary" role="alert">
+                Ce n'est pas un identifiant d'utilisateur, c'est l'identifiant de ton équipe!
+                Prends garde à ne pas l'oublier et ne le partage jamais à l'extérieur de ton équipe !
+            </div>
+            <div class="box">
+
+                <div class="card">
+                    <img class="card-img-top"
+                        src="https://firebasestorage.googleapis.com/v0/b/urlproject-b49a6.appspot.com/o/exemple2.PNG?alt=media&token=16bce731-e57a-4365-8808-af6e4759c858"
+                        alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Considère-le comme un jeu </h5>
+                        <p class="card-text">
+                            Jouez en équipe, avec le même identifiant et essayez d'atteindre la dernière URL ensemble.
+                            Faites preuve d'un esprit coopératif et entraidez-vous par message .
+                            Quelques URL sont des jeux sur navigateur, vous devrez être attentif pour obtenir l'accès
+                            aux
+                            prochaines URL.
+
+                        </p>
+                    </div>
+
+                </div>
+                <div class="card">
+                    <img class="card-img-top"
+                        src="https://firebasestorage.googleapis.com/v0/b/urlproject-b49a6.appspot.com/o/Capture%20d%E2%80%99e%CC%81cran%202019-03-11%20a%CC%80%2020.09.41.png?alt=media&token=2d05ee44-e0fa-401f-81a1-6068a813e814"
+                        alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Obtenez la prochaine Url</h5>
+                        <p class="card-text">Parcourez Internet pour compléter les Etape Url. Chaque Url possède une mission que
+                            vous devez réussir pour avancer .
+
+                            <br> Les Etapes Url sont pour la plupart des questions dont la réponse se cache sur la page
+                            web .
+                        <b>Si vous franchissez toutes les urls vous deviendrez Url Master.
+                            Ainsi vous aurez le privilège de mettre en ligne votre propre Etape Url.
+                        </b> 
+                        </p>
+                    </div>
+
+
+                </div>
+                <div class="card">
+                    <img class="card-img-top"
+                        src="https://firebasestorage.googleapis.com/v0/b/urlproject-b49a6.appspot.com/o/exemple3.PNG?alt=media&token=54e11e75-e038-4177-a436-9b52523a4496"
+                        alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title">Un long voyage sur internet</h5>
+                        <p class="card-text">
+                            Les pages web que vous êtes prêts à explorer peuvent être culturelles, elles vous rendent
+                            d'avantage
+                            intelligent et cultivé.
+                            Vous pouvez aussi tomber sur des pages atypiques, comme des profils Facebook d'inconnus ou
+                            des sites frauduleux.
+
+
+                        </p>
+                    </div>
+
+
+                </div>
+            </div>
+            <div id="language">
+                <a href="https://runafterurl.com">Aller à la version Anglaise</a></div>
+            <div id="loginstuff">
+                <div class="loginmessage"> Connectez-vous avec votre équipe juste ci-dessous </div>
+                <form id="login" onSubmit="return false;" onkeypress="if(event.keyCode == 13){login();}" method="post"
+                    accept-charset="ISO-8859-1">
+
+                    <input id="form" name="query" type="search" class="form-control" type="text" name="fname" value=""
+                        placeholder="UrlHunterTeam"><br>
+                </form>
+
+                <button id="loginbutton" class="btn btn-dark btn-lg btn-block" type="button"
+                    onclick="  login(); ">Login</button>
+
+            </div>
+
+        </div>
+
+        <div id="gamepart">
+            <div id="appbar">
+                <ol class="breadcrumb" id="auth">
+                    <div class="urlstep-message" class="Messago">
+                        <p class="introcitation">Etape Url Message</p>
+                        <div id="bigname">
+
+                            <p id="inputname" class="citations"></p>
+
+                        </div>
+                    </div>
+                    <div id="level"></div>
+                    <div class="urlstep-message">
+                        <p class="introcitation">Master Url Message</p>
+
+                        <div id="bigmessage" class="Messago">
+
+                            <p id="inputmessage" class="citations"></p>
+
+                        </div>
+                    </div>
+                </ol>
+            </div>
+            <div id="dropdecale" class=" dropdownbutton btn-group">
+                <button class="btn btn-danger dropdown-toggle" type="button" id="dropdownMenuButton"
+                    data-toggle="dropdown">
+                    Report
+                </button>
+                <div id="dropdoon" class="dropdown-menu">
+                    <a class="dropdown-item" href="#" onclick="Report(1);">Ce post n'est pas en Français</a>
+                    <a class="dropdown-item" href="#" onclick="Report(2);">La réponse est évidente et ne marche pas</a>
+                    <a class="dropdown-item" href="#" onclick="Report(3);">L'Url ne marche plus</a>
+                    <a class="dropdown-item" href="#" onclick="Report(4);">La question a déja été posé </a>
+                    <a class="dropdown-item" href="#" onclick="Report(5);">Il n'y aucun lien entre la question et
+                        l'url</a>
+                    <a class="dropdown-item" href="#" onclick="Report(6);">L'autheur a fait des fautes d'orthographe</a>
+
+
+
+
+                </div>
+            </div>
+            <br>
+
+            <div id="instruction"></div>
+
+            <br>
+
+            <br>
+            <div id="sixbuttons">
+                <div class="row">
+                    <div class="col">
+                        <button type="button" id="button1" class="sixbut btn btn-primary" data-toggle="button"
+                            onclick="buttonclick = 1; summit(0);"></button>
+                    </div>
+                    <div class="col">
+                        <button type="button" id="button2" class="sixbut btn btn-primary" data-toggle="button"
+                            onclick="buttonclick = 2;  summit(0);"></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <button type="button" id="button3" class="sixbut btn btn-primary" data-toggle="button"
+                            onclick="buttonclick = 3; summit(0);"></button>
+                    </div>
+                    <div class="col">
+                        <button type="button" id="button4" class="sixbut btn btn-primary" data-toggle="button"
+                            onclick="buttonclick = 4; summit(0);"></button>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+
+                        <button type="button" id="button5" class="sixbut btn btn-primary" data-toggle="button"
+                            onclick="buttonclick = 5; summit(0); "></button>
+                    </div>
+                    <div class="col">
+
+                        <button type="button" id="button6" class="sixbut btn btn-primary" data-toggle="button"
+                            onclick="buttonclick = 6;summit(0);"></button>
+                    </div>
+                    <br>
+                </div>
+
+            </div>
+            <div id="textform">
+
+                <form id="textimput" onSubmit="return false;" onkeypress="if(event.keyCode == 13){summit();}"
+                    method="post">
+                    <input type="text" type="search" class="" id="thetextimput" name="query" value=""><br>
+                </form>
+                <button type="button" id="button_text" class="btn btn-primary" data-toggle="button"
+                    onclick=" summit(1);">
+                    <p id="answertext">Answer</p>
+                </button>
+            </div>
+            <div>
+                <a href="" id="url" target="_blank">
+                    <p id="urlclick"></p>
+                </a>
+                <div id="progress8level">
+                    <p class="progresslevel" id="actual_level"></p>
+                    <div class="progress" style="height: 40px">
+                        <div class="progress-bar progress-bar-striped progress-bar-animated" id="progbar"
+                            role="progressbar" style="" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+
+                    </div>
+                    <p class="progresslevel" id="futurlevel"></p>
+
+                </div>
+
+
+
+                <br>
+
+                <br>
+                <button type="button" id="skip" class="btn btn-warning" onclick=" seconds--;">
+                    Passer <span class="badge badge-light" id="timer"></span>
+                    <span class="sr-only">temps restant</span>
+                </button>
+
+                <button id="clicktoskip" class="btn btn-danger" onclick="goskip()">Passer</button>
+
+
+                <br> <button type="button" id="create_Post" class="btn btn-outline-dark "
+                    onclick="if(checkhaspost()){status = 2; getPage();  }">Creer une Etape Url</button>
+
+                <div id="talkspace">
+                    <div id="talk_share">
+                        <form id="talk_input" onSubmit="return false;"
+                            onkeypress="if(event.keyCode == 13){SendMessage();}" method="post">
+                            <input class="form-control" id="thetalk_input" type="text"
+                                placeholder="Put here what you want to tell to your friends">
+                        </form>
+                        <button id="talk_send" onclick="SendMessage();" class="btn btn-secondary"><i
+                                class="fas fa-angle-double-right"></i></button>
+                    </div>
+
+                    <div id="messagespace"></div>
+                </div>
+
+            </div>
+        </div>
+        <div id="createapost">
+
+            <div id="makeyourpost2">
+                <form id="addPost2">
+
+                    <div class="form-group">
+                        <h2>Text</h2><br>
+                        <label for="inputAddress">URL</label>
+                        <input type="url" class="form-control" id="inputAddress"
+                            placeholder="Enter the Url of your favorite website">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddress2">Question</label>
+                        <input type="text" class="form-control" id="inputAddress2"
+                            placeholder="Enter the question you want to aks about your Url">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4">Réponse</label>
+                            <input type="text" class="form-control" id="inputEmail4"
+                                placeholder="Enter the unique answer possible">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4">Message</label>
+                            <input type="text" class="form-control" id="inputPassword4" placeholder="People usually tell their names">
+                        </div>
+                    </div>
+                </form>
+                <button id="PostPost" class="decale btn btn-secondary btn-lg" onclick=" addthePost(1); ">create
+                    your Etape Url</button>
+
+            </div>
+            <br>
+
+
+            <div id="makeyourpost">
+                <form id="addPost">
+
+                    <div class="form-group">
+                        <h2> Choix multiple </h2><br>
+                        <label for="inputAddress">URL</label>
+                        <input type="url" class="form-control" id="inputAddress"
+                            placeholder="Enter the Url of your favorite website">
+                    </div>
+                    <div class="form-group">
+                        <label for="inputAddress2">Question</label>
+                        <input type="text" class="form-control" id="inputAddress2"
+                            placeholder="Enter the question you want to aks about your Url">
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4"> Réponse 1 </label>
+                            <input type="text" class="form-control" id="inputEmail4"
+                                placeholder="Enter the 1st possible answer">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4"> Réponse 2 </label>
+                            <input type="text" class="form-control" id="inputPassword4"
+                                placeholder="Enter the 2nd possible answer">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4"> Réponse 3 </label>
+                            <input type="text" class="form-control" id="inputEmail4"
+                                placeholder="Enter the 3rd possible answer">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4"> Réponse 4 </label>
+                            <input type="text" class="form-control" id="inputPassword4"
+                                placeholder="Enter the 4th possible answer">
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="inputEmail4"> Réponse 5 </label>
+                            <input type="text" class="form-control" id="inputEmail4"
+                                placeholder="Enter the 5th possible answer">
+                        </div>
+                        <div class="form-group col-md-6">
+                            <label for="inputPassword4"> Réponse 6 </label>
+                            <input type="text" class="form-control" id="inputPassword4"
+                                placeholder="Enter the 6th possible answer">
+                        </div>
+
+                    </div>
+
+                    <div class="takeplace">
+                        <div class="totakeplace">
+                            <label for="inputState">Réponse Correct</label>
+                            <select id="inputState" class="form-control">
+                                <option selected>1</option>
+                                <option>2</option>
+                                <option>3</option>
+                                <option>4</option>
+                                <option>5</option>
+                                <option>6</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="takeplace">
+
+                        <div class="totakeplace" id="message_droite">
+                            <label for="inputCity">Message</label>
+                            <input type="text" class="form-control" id="inputCity"
+                                placeholder="People usually tell their names">
+                        </div>
+                    </div>
+
+
+                </form>
+
+                <button id="PostPost" class="btn btn-secondary btn-lg" onclick=" addthePost(0);">Créer votre Etape
+                    Url</button>
+
+            </div>
+            <button id="PostPost" class="leave btn btn-primary" onclick="status = 3; getPage();">Go back</button>
+        </div>
+    </div>
+    <script>
+        document.getElementById('gamepart').style.display = "none";
+        document.getElementById('createapost').style.display = "none";
+        document.getElementById('skip').style.display = "none";
+        document.getElementById('clicktoskip').style.display = "none";
+
+        function summit(type) {
+            if (waitogo == false) {
+                waitogo = true;
+                setTimeout(function () { waitogo = false; }, 6000);
+
+                if (type == 0) {
+
+                    if (howtime == false) {
+
+                        if (buttonclick == expected && teamlvl == lvl_player) {
+                            if (buttonclick == expected && teamlvl == lvl_player) {
+
+
+                            }
+                            lvl_player++;
+
+                            db.collection("users_fr").doc(idcode).set({
+                                lvl: lvl_player,
+                                id: username,
+                            });
+                            var x = document.getElementById("snackbar");
+                            x.style.backgroundColor = "green";
+                            x.innerHTML = "Accès Autorisé";
+                            x.className = "show";
+                            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+                            getPage();
+
+                        } else {
+                            var x = document.getElementById("snackbar");
+                            x.style.backgroundColor = "red";
+                            x.innerHTML = "Accès refusé";
+                            x.className = "show";
+                            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+                            howtime = true;
+                            countdown(0);
+                        }
+
+                    } else {
+                        swal("the button havnt got any effect")
+
+                    }
+
+                } else {
+                    if (howtime == false) {
+                        var format = document.getElementById("textimput");
+                        var formation = format.elements[0].value.toString();
+
+
+                        formation = formation.replace(/ /g, '');
+                        formation = RemoveAccents(formation);
+                        formation = formation.toLowerCase();
+
+                        var formationlast = formation.substring(0, formation.length - 1);
+                        var expectedlast = expected.substring(0, expected.length - 1);
+
+
+
+
+                        if (formation == expected || formationlast == expected || formation == expectedlast || check_imput_true(formation) == true && teamlvl == lvl_player) {
+                             
+
+                          
+                            var x = document.getElementById("snackbar");
+                            x.style.backgroundColor = "green";
+                            x.innerHTML = "Accès Autorisé";
+
+                            x.className = "show";
+                            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+                            lvl_player++;
+
+                            db.collection("users_fr").doc(idcode).set({
+                                lvl: lvl_player,
+                                id: username,
+                            });
+                            getPage();
+                            document.getElementById("textimput").reset();
+                        
+                        } else {
+                            var x = document.getElementById("snackbar");
+                            x.style.backgroundColor = "red";
+                            x.innerHTML = "Accès refusé";
+                            x.className = "show";
+                            setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+                            if (Math.random() > 0.999249340704657) {
+                                document.getElementById('clicktoskip').style.display = "block";
+                            }
+
+
+                        }
+                    } else {
+                        swal("the button havnt got any effect")
+
+                    }
+
+                }
+            }
+
+        }
+
+
+
+
+
+
+
+    </script>
+
+
+
+    <script>
+        function SendMessage() {
+            var time = parseInt(Date.now());
+            var valuemessage = document.getElementById("talk_input");
+            valuemessage = valuemessage.elements[0].value.toString();
+            if (valuemessage != "") {
+                document.getElementById("talk_input").reset();
+                db.collection("Posts_fr").doc(official_document_id).collection(username).add({
+                    timing: time,
+                    text: valuemessage,
+                });
+            }
+
+        }
+        var justonemoretime = true;
+        function Maketalkspace() {
+
+
+            var list = document.createElement('ul');
+            list.setAttribute("class", "list-group");
+
+
+            // get the list of message for this Post (create a new collection after Post) order by time
+            db.collection('Posts_fr').doc(official_document_id).collection(username).orderBy("timing", "desc").limit(1).onSnapshot(function (querySnapshot) {
+                if (querySnapshot.empty) {
+
+                    document.getElementById("messagespace").innerHTML = "Talk to your friends with the chat...";
+                }
+                querySnapshot.forEach(function (doc) {
+                    document.getElementById("messagespace").innerHTML = "";
+                    item = 0;
+                    var item = document.createElement('li');
+                    item.setAttribute("class", "list-group-item");
+                    item.appendChild(document.createTextNode(doc.data().text));
+                    list.appendChild(item);
+
+                });
+
+                document.getElementById("messagespace").appendChild(list);
+
+            });
+
+        }
+
+
+
+    </script>
+
+
+    <script>
+        function addthePost(atype) {
+            if (waitogo == false) {
+                waitogo = true;
+                setTimeout(function () { waitogo = false; }, 6000);
+                if (atype == 0) {
+                    var form = document.getElementById("addPost");
+                    if (form.elements[0].value.toString() && form.elements[1].value.toString() && form.elements[3].value.toString() && form.elements[4].value.toString() && form.elements[5].value.toString() && form.elements[6].value.toString() && form.elements[7].value.toString() && form.elements[8].value.toString() != null) {
+
+                        status = 0;
+                        getPage();
+                        document.getElementById('createapost').style.display = "none";
+
+                        db.collection("Posts_fr").add({
+                            url: form.elements[0].value.toString(),
+                            instruction: form.elements[1].value.toString(),
+                            one: form.elements[2].value.toString(),
+                            two: form.elements[3].value.toString(),
+                            three: form.elements[4].value.toString(),
+                            four: form.elements[5].value.toString(),
+                            five: form.elements[6].value.toString(),
+                            six: form.elements[7].value.toString(),
+                            expected: form.elements[8].value.toString(),
+                            name: form.elements[9].value.toString(),
+                            type: 0,
+                            valide: false,
+                            id: username,
+
+
+                        });
+                        db.collection('users_fr').doc(idcode).set({
+                            has_post: true
+                        }, { merge: true });
+                        lvl_player = teamlvl;
+                        var x = document.getElementById("snackbar");
+                        x.style.backgroundColor = "green";
+                        x.innerHTML = "your Url is ready to be known";
+                        x.className = "show";
+                        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+
+                    } else {
+                        swal("field are not good ... please make sure you fill them all");
+
+                    }
+                } else if (atype == 1) {
+                    var form2 = document.getElementById("addPost2");
+                    var valueform = form2.elements[2].value.toString();
+                    valueform = valueform.replace(/ /g, '');
+                    valueform = RemoveAccents(valueform);
+                    valueform = valueform.toLowerCase();
+
+                    if (valueform != "" && valueform.length < 20 && form2.elements[0].value != null && form2.elements[0].value.toString().length < 60) {
+                        status = 0;
+                        getPage();
+                        document.getElementById('createapost').style.display = "none";
+
+                        db.collection("Posts_fr").add({
+                            instruction: form2.elements[1].value.toString(),
+                            expected: valueform,
+                            url: form2.elements[0].value.toString(),
+                            name: form2.elements[3].value.toString(),
+                            valide: false,
+                            type: 1,
+                            id: username,
+                        });
+
+                        db.collection('users_fr').doc(idcode).set({
+                            has_post: true
+                        }, { merge: true });
+                        var x = document.getElementById("snackbar");
+                        x.style.backgroundColor = "green";
+                        x.innerHTML = "your Url is ready to be known";
+                        x.className = "show";
+                        setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+                    } else {
+                        swal("field are not good ... please make sure you fill them all");
+
+
+                    }
+
+                }
+            }
+        }
+        function goskip() {
+            howtime = true;
+            countdown(1);
+            document.getElementById('clicktoskip').style.display = "none";
+
+
+        }
+
+
+        function countdown(atype) {
+            document.getElementById('timer').style.display = "block";
+            document.getElementById('skip').style.display = "block";
+            db.collection('users_fr').doc(idcode).set({
+                waiting: true
+            }, { merge: true });
+            seconds = Math.round(teamlvl / lvlmax * 1000);
+            function tick() {
+
+                var counter = document.getElementById("timer");
+                seconds--;
+                counter.innerHTML = (seconds < 10 ? "0" : "") + String(seconds) + " secondes";
+                if (seconds > 0) {
+                    setTimeout(tick, 1000);
+                } else {
+                    db.collection('users_fr').doc(idcode).set({
+                        waiting: false
+                    }, { merge: true });
+                    howtime = false;
+                    document.getElementById('skip').style.display = "none";
+                    document.getElementById('timer').style.display = "none";
+                    if (atype == true) {
+                        lvl_player++;
+
+
+                        db.collection("users_fr").doc(idcode).set({
+                            lvl: lvl_player,
+                            id: username,
+                        });
+                        getPage();
+
+                    }
+
+                }
+            }
+            tick();
+        }
+
+        function RemoveAccents(str) {
+            var accents = 'ÀÁÂÃÄÅàáâãäåÒÓÔÕÕÖØòóôõöøÈÉÊËèéêëðÇçÐÌÍÎÏìíîïÙÚÛÜùúûüÑñŠšŸÿýŽž';
+            var accentsOut = "AAAAAAaaaaaaOOOOOOOooooooEEEEeeeeeCcDIIIIiiiiUUUUuuuuNnSsYyyZz";
+            str = str.split('');
+            var strLen = str.length;
+            var i, x;
+            for (i = 0; i < strLen; i++) {
+                if ((x = accents.indexOf(str[i])) != -1) {
+                    str[i] = accentsOut[x];
+                }
+            }
+            return str.join('');
+        }
+
+
+
+
+        function check_imput_true(theimput) {
+            var foix = 0;
+            var v = 0;
+
+            var prob = expected.length / 6 + 1;
+            if (theimput.length > 4) {
+
+                var i = 0;
+                if (theimput.length == expected.length) {
+
+                    while (expected.length > i) {
+                        if (theimput[i] != expected[i]) {
+                            foix++;
+
+                            if (foix >= prob) {
+                                return false;
+
+                            }
+                        }
+                        i++;
+
+                    }
+                }
+                else if (theimput.length > expected.length) {
+
+                    while (theimput.length > i) {
+                        //mi§chelle mc§helle
+
+                        if (theimput[v] != expected[i]) {
+                            i--;
+                            foix++;
+                            if (foix >= prob) {
+
+                                return false;
+                            }
+                        }
+                        i++;
+                        v++;
+                    }
+
+                } else if (theimput.length < expected.length) {
+
+                    while (expected.length > i) {
+
+                        if (expected[i] != theimput[v]) {
+                            v--;
+                            foix++;
+                            if (foix >= prob) {
+                                return false;
+                            }
+                        }
+                        i++;
+                        v++;
+
+                    }
+
+
+                }
+
+                return true;
+            } else {
+                return false;
+
+            }
+
+
+        }
+    </script>
+
+    <script>
+        function Report(type) {
+            if (potential_id == official_document_id || already_report == true) {
+                var x = document.getElementById("snackbar");
+                x.style.backgroundColor = "#FFB200";
+                x.innerHTML = "you ve already reported this post";
+
+                x.className = "show";
+                setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+            } else {
+
+                already_report = true;
+                var stringReport = "report_", type;
+                reportnumb = 0;
+                Get_DifferentReport(type);
+
+            }
+        }
+
+        function reportwait(type) {
+
+            if (reportnumb == undefined) {
+                reportnumb = 1;
+            } else {
+
+                reportnumb = reportnumb + 1;
+
+            }
+
+
+
+            if (reportnumb > lvlmax * 3) {
+                // delete the "Post if type 20%peoplewentby"
+                db.collection("Posts_fr").doc(official_document_id).delete().then(function () {
+                    console.log("Document successfully deleted!");
+                }).catch(function (error) {
+                    console.error("Error removing document: ", error);
+                });
+            } else {
+                DifferentReport(type);
+
+                //take care of where the user will be doing after(the next one who have an idea);
+
+                var x = document.getElementById("snackbar");
+                x.style.backgroundColor = "#FFB200";
+                x.innerHTML = "your reported this post";
+
+                x.className = "show";
+                setTimeout(function () { x.className = x.className.replace("show", ""); }, 3000);
+
+
+            }
+        }
+        //press enter to valid a form
+
+        //press enter to valid a form
+        function Get_DifferentReport(type) {
+            if (type == 6) {
+                db.collection('Posts_fr').doc(official_document_id).get().then(function (doc) {
+                    reportnumb = doc.data().stringReport6;
+                    reportwait(type);
+
+                });
+            } else if (type == 1) {
+                db.collection('Posts_fr').doc(official_document_id).get().then(function (doc) {
+                    reportnumb = doc.data().stringReport1;
+                    reportwait(type);
+
+
+                });
+            } else if (type == 2) {
+                db.collection('Posts_fr').doc(official_document_id).get().then(function (doc) {
+                    reportnumb = doc.data().stringReport2;
+                    reportwait(type);
+                });
+            }
+            else if (type == 3) {
+                db.collection('Posts_fr').doc(official_document_id).get().then(function (doc) {
+                    reportnumb = doc.data().stringReport3;
+                    reportwait(type);
+
+
+                });
+            }
+            else if (type == 4) {
+                db.collection('Posts_fr').doc(official_document_id).get().then(function (doc) {
+                    reportnumb = doc.data().stringReport4;
+
+
+                    reportwait(type);
+
+                });
+            }
+            else if (type == 5) {
+                db.collection('Posts_fr').doc(official_document_id).get().then(function (doc) {
+                    reportnumb = doc.data().stringReport5;
+                    reportwait(type);
+
+
+                });
+            }
+
+
+
+        }
+
+        function DifferentReport(type) {
+            if (type == 6) {
+                db.collection('Posts_fr').doc(official_document_id).set({
+
+                    stringReport6: reportnumb,
+
+                    //set the document to be on the mood!!!
+                }, { merge: true });
+
+            } else if (type == 1) {
+                db.collection('Posts_fr').doc(official_document_id).set({
+
+                    stringReport1: reportnumb,
+
+                    //set the document to be on the mood!!!
+                }, { merge: true });
+
+
+            } else if (type == 2) {
+                db.collection('Posts_fr').doc(official_document_id).set({
+
+                    stringReport2: reportnumb,
+
+                    //set the document to be on the mood!!!
+                }, { merge: true });
+
+
+            } else if (type == 3) {
+                db.collection('Posts_fr').doc(official_document_id).set({
+
+                    stringReport3: reportnumb,
+
+                    //set the document to be on the mood!!!
+                }, { merge: true });
+
+
+            } else if (type == 4) {
+                db.collection('Posts_fr').doc(official_document_id).set({
+
+                    stringReport4: reportnumb,
+
+                    //set the document to be on the mood!!!
+                }, { merge: true });
+
+
+            } else if (type == 5) {
+                db.collection('Posts_fr').doc(official_document_id).set({
+
+                    stringReport5: reportnumb,
+
+                    //set the document to be on the mood!!!
+                }, { merge: true });
+
+
+            }
+
+
+
+        }
+        var private_message;
+        var private_instruction;
+        var private_url;
+        var private_expected;
+        var idfordelete;
+
+        function checkhaspost() {
+            if (!has_post) {
+
+                return true;
+            }
+
+            else {
+                if (private_message == undefined && private_instruction == undefined && private_url == undefined && private_expected == undefined) {
+                    db.collection('Posts_fr').where('id', '==', username).limit(1).get().then((snapshot) => {
+                        snapshot.docs.forEach(doc => {
+                            private_message = doc.data().name;
+                            private_instruction = doc.data().instruction;
+                            private_url = doc.data().url;
+                            private_expected = doc.data().expected;
+                            idfordelete = doc.id;
+                            checkhaspost();
+
+                        })
+
+                    });
+
+
+
+
+
+                } else {
+                    swal({
+                        icon: "warning",
+                        title: "Voulez vous supprimez votre Etape Url ?",
+                        text: "Vous possédez déja une Etape Url \n" + "Votre Url : " + private_url + "\n Votre question : " + private_instruction + "\n votre réponse : " + private_expected + "\n votre message : " + private_message,
+                        buttons: true,
+                        dangerMode: true,
+                    }).then((willDelete) => {
+                        if (willDelete) {
+                            db.collection("Posts_fr").doc(idfordelete).delete().then(function () {
+                                console.log("Document successfully deleted!");
+                                has_post = false;
+                                db.collection('users_fr').doc(idcode).set({
+                                    has_post: false
+                                }, { merge: true });
+
+                            }).catch(function (error) {
+                                console.error("Error removing document: ", error);
+                            });
+
+
+
+                            swal("Poof! Votre Etape Url a été supprimé", {
+                                icon: "success",
+                            });
+                        } else {
+                            swal("Votre Etape Url est saine et sauve");
+                        }
+                    });
+
+                }
+
+                return false;
+            }
+
+        }
+
+
+
+    </script>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+</body>
+
+</html>

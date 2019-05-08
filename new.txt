@@ -1,0 +1,42 @@
+Consideront le comme un jeu a part entière.
+
+Jouez en équipe avec le même identifiant 
+et essayer d'atteindre la dernière Url ensemble.
+Certaines Url sont des jeux web, vous devrez être attentif pour obtenir 
+l'accês à la prochaine Url. 
+//
+
+
+Les missions sont pour la plus part des questions sur la page web, elle vous donnerons
+l'accês si vous avez la bonne réponse.
+//
+Une grand voyage sur internet
+
+Les page web que vous allez explorer peuvent aussi être des encyclopédie ou
+des profils facebook 
+
+Connecter vous avec votre équipe en dessous
+
+
+
+ 
+
+
+
+
+planning : 
+10 h 00 - 11 h 00 = mediaquery finish; ok
+
+11 h 00 - 12 h 00 = faire les speech francais et anglais de l'app;
+
+12 h 00 - 1 h 00 = creer deux version une francais et une anglais 
+
+2 h 30 - 3 h 30 =  have a better url
+
+4 h 00 - 5 h 00 = hide your js
+
+6 h30 - 8 h 00 = correct everybug & clear graphisme
+
+9 h 30 - 11 h 30 = 6 + 6 UrlPost
+
+11 h 30 - 00 h 30 = Research for the ads
